@@ -1,5 +1,6 @@
 package com.mmf.web;
 
+import com.mmf.dto.ResponseModel;
 import com.mmf.model.User;
 import com.mmf.service.IUserService;
 import org.springframework.stereotype.Controller;
@@ -22,11 +23,13 @@ public class UserController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    private Object list(Model model) {
-        List<User> list = userService.getUserList();
-        model.addAttribute("list", list);
+    private Object list(String name) {
+        List<User> list = userService.getUserList(name);
+//        model.addAttribute("list", list);
         // list.jsp + model = ModelAndView
+        ResponseModel model = new ResponseModel(0,"获取数据成功");
+        model.setData(list);
         System.out.println("**********" + list.toString());
-        return list;
+        return model;
     }
 }

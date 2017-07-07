@@ -13,5 +13,5 @@ public interface IUserService {
      *
      * @return
      */
-    List<User> getUserList();
+    List<User> getUserList(String name);
 }

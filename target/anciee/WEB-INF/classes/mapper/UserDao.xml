@@ -10,6 +10,6 @@
         name,
         password
         FROM
-        tb_user
+        tb_user where name=#{name}
     </select>
 </mapper>

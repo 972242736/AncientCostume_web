@@ -16,7 +16,7 @@ public class UserServiceImp implements IUserService {
     @Resource
     private IUserDao userDao;
 
-    public List<User> getUserList() {
-        return userDao.queryAll();
+    public List<User> getUserList(String name) {
+        return userDao.queryAll(name);
     }
 }
