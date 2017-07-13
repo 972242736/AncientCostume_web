@@ -42,7 +42,7 @@ public class FileController {
     //
     @RequestMapping(value = "/upload1", method = RequestMethod.POST)
     @ResponseBody
-    public Object uploadFile(@RequestParam Map<String,MultipartFile> files1,HttpServletRequest request) throws IllegalStateException, IOException {
+    public Object uploadFile(@RequestParam Map<String,Object> map1,HttpServletRequest request) throws IllegalStateException, IOException {
         long startTime = System.currentTimeMillis();
         //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
@@ -60,6 +60,7 @@ public class FileController {
                 (new File("D:/upload")).mkdirs();
                 if (files != null && files.size() > 0) {
                     for (MultipartFile file : files) {
+                        System.out.println("file"+file.getName());
                         String path = "D:/upload/" + file.getOriginalFilename();
                         //上传
                         file.transferTo(new File(path));
@@ -136,7 +137,7 @@ public class FileController {
 //    }
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public Object uploadFile1(MultipartHttpServletRequest request) throws IllegalStateException, IOException {
+    public Object uploadFile1(@RequestParam("files") Map<String, MultipartFile>  files) throws IllegalStateException, IOException {
         long startTime = System.currentTimeMillis();
 //        List<MultipartFile> files= request.getFiles("files");
         //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
@@ -147,20 +148,20 @@ public class FileController {
 //            //将request变成多部分request
 //            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
 //            //获取multiRequest 中所有的文件名
-        Iterator iter = request.getFileNames();
+//        Iterator iter = request.getFileNames();
 
         (new File("D:/upload")).mkdirs();
-        while (iter.hasNext()) {
+//        while (iter.hasNext()) {
             //一次遍历所有文件
-            List<MultipartFile> files = request.getFiles(iter.next().toString());
-            if (files != null && files.size() > 0) {
-                for (MultipartFile file : files) {
-                    String path = "D:/upload/" + file.getOriginalFilename();
-                    //上传
-                    file.transferTo(new File(path));
-                }
-            }
-        }
+//            List<MultipartFile> files = request.getFiles(iter.next().toString());
+//            if (files != null && files.size() > 0) {
+//                for (MultipartFile file : files) {
+//                    String path = "D:/upload/" + file.getOriginalFilename();
+//                    //上传
+//                    file.transferTo(new File(path));
+//                }
+//            }
+//        }
         long endTime = System.currentTimeMillis();
         System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");
         ResponseModel model = new ResponseModel(0, "获取数据成功");
