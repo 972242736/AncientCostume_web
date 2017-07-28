@@ -1,57 +1,45 @@
 package com.mmf.service.imp;
 
 import com.mmf.service.IFileService;
+import com.sun.org.apache.xml.internal.serializer.utils.Utils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by MMF on 2017-06-21.
  */
 @Service("fileService")
-public class FileServiceImp implements IFileService{
+public class FileServiceImp implements IFileService {
     /**
-     *
      * 多文件上传
-     *
      ***/
-    public Object uploadFile(MultipartFile[] files){
+    public Object uploadFile(List<MultipartFile> files,int detailId) {
         Object object = new Object();
 
-//        StringBuffer path = new StringBuffer();
-//        path = path.append(configReader.getDriverLetter()).append(configReader.getLocalPath()).append(1000000000).append("/").append(1000000001).append("/");
-//        System.out.println("文件存放路径"+path);
-//        //如果目录不存在，则新建
-//        File dir = new File(path.toString());
-//        if(!dir.exists()){
-//            dir.mkdirs();
-//        }
-//        String tmpPath = path.toString();
-//        for (int i = 0; i < files.length; i++) {
-//
-//            MultipartFile file = files[i];
-//
-//            //图片命名
-//            String tmp = Utils.getSysTimeSSS();
-//            tmpPath = tmpPath+tmp+".png";
-//            System.out.println("文件路径:"+tmpPath);
-//
-//            //上传图片
-//            try {
-//                byte[] bytes = file.getBytes();
-//                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(tmpPath)));
-//                stream.write(bytes);
-//                stream.close();
-//                tmpPath=path.toString();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//
-//                //评论图片上传失败
-//                return null;
-//            }
-//        }
+     //图片命名
+        long time = System.currentTimeMillis();
+
+        (new File("D:/upload")).mkdirs();
+        if (files != null && files.size() > 0) {
+            for (MultipartFile file : files) {
+                String path = "D:/upload/" + time + file.getName().substring(file.getName().indexOf(".") - 1, file.getName().length() - 1);
+                //在数据库中插入一个记录
+
+                System.out.println("path" + path);
+                //上传
+                try {
+                    file.transferTo(new File(path));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         return object;
     }
+
 }

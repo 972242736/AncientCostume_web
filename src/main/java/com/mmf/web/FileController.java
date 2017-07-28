@@ -39,10 +39,9 @@ public class FileController {
         return list;
     }
 
-    //
     @RequestMapping(value = "/upload1", method = RequestMethod.POST)
     @ResponseBody
-    public Object uploadFile(@RequestParam Map<String,Object> map1,HttpServletRequest request) throws IllegalStateException, IOException {
+    public Object uploadFile(@RequestParam Map<String, Object> map1, HttpServletRequest request) throws IllegalStateException, IOException {
         long startTime = System.currentTimeMillis();
         //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
@@ -60,7 +59,7 @@ public class FileController {
                 (new File("D:/upload")).mkdirs();
                 if (files != null && files.size() > 0) {
                     for (MultipartFile file : files) {
-                        System.out.println("file"+file.getName());
+                        System.out.println("file" + file.getName());
                         String path = "D:/upload/" + file.getOriginalFilename();
                         //上传
                         file.transferTo(new File(path));
@@ -79,65 +78,9 @@ public class FileController {
         return model;
     }
 
-    //    @RequestMapping(value = "/upload", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Object uploadFile(@RequestParam Map<String,MultipartFile> files) throws IllegalStateException, IOException {
-//        long startTime = System.currentTimeMillis();
-//        //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
-////        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
-////                request.getSession().getServletContext());
-////        //检查form中是否有enctype="multipart/form-data"
-////        if (multipartResolver.isMultipart(request)) {
-////            //将request变成多部分request
-////            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-////            //获取multiRequest 中所有的文件名
-////            Iterator iter = multiRequest.getFileNames();
-//
-////            while (iter.hasNext()) {
-////                //一次遍历所有文件
-//
-//        (new File("D:/upload")).mkdirs();
-////        Set<String> keySet = files.keySet();
-//
-////        for (Iterator<String> iterator = keySet.iterator(); iterator.hasNext(); ) {
-////            String key = iterator.next();
-//
-////            String value = (String)files.get(key);
-////            CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
-////                request.getSession().getServletContext());
-////        //检查form中是否有enctype="multipart/form-data"
-////        if (multipartResolver.isMultipart(request)) {
-////            //将request变成多部分request
-////            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-////            //获取multiRequest 中所有的文件名
-////            Iterator iter = multiRequest.getFileNames();
-////            /                    for (MultipartFile file : files) {
-////            String path = "D:/upload/" + value.getOriginalFilename();
-////            //上传
-////            value.transferTo(new File(path));
-////            System.out.println("value"+value);
-////
-////        }
-//////                List<MultipartFile> files = multiRequest.getFiles(iter.next().toString());
-////                if (files != null && files.length > 0) {
-//
-////                    }
-////                }
-//
-////            }
-//
-////        }
-//        long endTime = System.currentTimeMillis();
-//        System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");
-//        ResponseModel model = new ResponseModel(0, "获取数据成功");
-//        List<String> list = new ArrayList<String>();
-//        list.add("哈哈");
-//        model.setData(list);
-//        return model;
-//    }
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
-    public Object uploadFile1(@RequestParam("files") Map<String, MultipartFile>  files) throws IllegalStateException, IOException {
+    public Object uploadFile1(@RequestParam("files") Map<String, MultipartFile> files) throws IllegalStateException, IOException {
         long startTime = System.currentTimeMillis();
 //        List<MultipartFile> files= request.getFiles("files");
         //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
@@ -152,7 +95,7 @@ public class FileController {
 
         (new File("D:/upload")).mkdirs();
 //        while (iter.hasNext()) {
-            //一次遍历所有文件
+        //一次遍历所有文件
 //            List<MultipartFile> files = request.getFiles(iter.next().toString());
 //            if (files != null && files.size() > 0) {
 //                for (MultipartFile file : files) {
@@ -162,6 +105,29 @@ public class FileController {
 //                }
 //            }
 //        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");
+        ResponseModel model = new ResponseModel(0, "获取数据成功");
+        List<String> list = new ArrayList<String>();
+        list.add("哈哈");
+        model.setData(list);
+        return model;
+    }
+
+
+    @RequestMapping(value = "/releaseInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Object releaseInfo(@RequestParam Map<String, Object> info, MultipartHttpServletRequest request) throws IllegalStateException, IOException {
+        //先插入发布的详情数据，获取到对应的详情的id的值
+        int detailId = 0;
+
+        long startTime = System.currentTimeMillis();
+        Iterator iter = request.getFileNames();
+        while (iter.hasNext()) {
+            //一次遍历所有文件
+            List<MultipartFile> files = request.getFiles(iter.next().toString());
+            fileService.uploadFile(files,detailId);
+        }
         long endTime = System.currentTimeMillis();
         System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");
         ResponseModel model = new ResponseModel(0, "获取数据成功");
