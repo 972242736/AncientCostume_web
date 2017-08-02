@@ -1,5 +1,6 @@
 package com.mmf.service;
 
+import com.mmf.model.GoodsDetail;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -9,9 +10,23 @@ import java.util.List;
  */
 public interface IFileService {
     /**
-     *
      * 多文件上传
-     *
-     ***/
-    public Object uploadFile(List<MultipartFile> files,int detailId);
+     */
+    public void uploadFile(List<MultipartFile> files, int detailId);
+
+    //    public int insertDetail(String title,String describe,String rental,String deposit);
+
+    /**
+     * 插入一条发布详细信息
+     * @param goodsDetail
+     * @return
+     */
+    public int insertDetail(GoodsDetail goodsDetail);
+
+    /**
+     * 获取详情
+     * @param id
+     * @return
+     */
+    public GoodsDetail getDetail(int id);
 }

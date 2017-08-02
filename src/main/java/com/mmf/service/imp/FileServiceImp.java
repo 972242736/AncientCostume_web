@@ -1,10 +1,13 @@
 package com.mmf.service.imp;
 
+import com.mmf.dao.IFileDao;
+import com.mmf.model.GoodsDetail;
 import com.mmf.service.IFileService;
-import com.sun.org.apache.xml.internal.serializer.utils.Utils;
+import com.mmf.utils.Md5;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -14,32 +17,40 @@ import java.util.List;
  */
 @Service("fileService")
 public class FileServiceImp implements IFileService {
+    @Resource
+    private IFileDao fileDao;
+
     /**
      * 多文件上传
      ***/
-    public Object uploadFile(List<MultipartFile> files,int detailId) {
-        Object object = new Object();
-
-     //图片命名
+    public void uploadFile(List<MultipartFile> files, int detailId) {
+        //图片命名
         long time = System.currentTimeMillis();
-
         (new File("D:/upload")).mkdirs();
         if (files != null && files.size() > 0) {
             for (MultipartFile file : files) {
-                String path = "D:/upload/" + time + file.getName().substring(file.getName().indexOf(".") - 1, file.getName().length() - 1);
-                //在数据库中插入一个记录
-
-                System.out.println("path" + path);
+                String pathTemp = Md5.getMD5Code(time + file.getOriginalFilename()) + file.getOriginalFilename().substring(file.getOriginalFilename().indexOf(".") - 1, file.getOriginalFilename().length());
+                String path = "D:/upload/" + pathTemp;
                 //上传
                 try {
                     file.transferTo(new File(path));
+                    //在数据库中插入一个记录
+                    fileDao.insertFile(pathTemp, detailId);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+    }
 
-        return object;
+    @Override
+    public int insertDetail(GoodsDetail goodsDetail) {
+        return fileDao.insertDetail(goodsDetail);
+    }
+
+    @Override
+    public GoodsDetail getDetail(int id) {
+        return null;
     }
 
 }

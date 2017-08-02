@@ -1,10 +1,10 @@
 package com.mmf.web;
 
 import com.mmf.dto.ResponseModel;
+import com.mmf.model.GoodsDetail;
 import com.mmf.model.User;
 import com.mmf.service.IFileService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -117,23 +117,33 @@ public class FileController {
 
     @RequestMapping(value = "/releaseInfo", method = RequestMethod.POST)
     @ResponseBody
-    public Object releaseInfo(@RequestParam Map<String, Object> info, MultipartHttpServletRequest request) throws IllegalStateException, IOException {
+    public Object releaseInfo(GoodsDetail goodsDetail, MultipartHttpServletRequest request) throws IllegalStateException, IOException {
+        ResponseModel model = new ResponseModel(0, "");
         //先插入发布的详情数据，获取到对应的详情的id的值
-        int detailId = 0;
-
-        long startTime = System.currentTimeMillis();
+        int count = fileService.insertDetail(goodsDetail);
+        if(count > 0 ){
+            model.setCode(1);
+            model.setMessage("插入详情数据失败");
+        }
+        int detailId = goodsDetail.getId();
         Iterator iter = request.getFileNames();
         while (iter.hasNext()) {
             //一次遍历所有文件
             List<MultipartFile> files = request.getFiles(iter.next().toString());
             fileService.uploadFile(files,detailId);
         }
-        long endTime = System.currentTimeMillis();
-        System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");
-        ResponseModel model = new ResponseModel(0, "获取数据成功");
-        List<String> list = new ArrayList<String>();
-        list.add("哈哈");
-        model.setData(list);
+        model.setMessage("插入数据成功");
+        model.setData("发布成功");
+        return model;
+    }
+    @RequestMapping(value = "/getDetail", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getDetail(int id) {
+        GoodsDetail goodsDetail = fileService.getDetail(id);
+//        model.addAttribute("list", list);
+        // list.jsp + model = ModelAndView
+        ResponseModel model = new ResponseModel<List<User>>(0, "获取数据成功");
+        model.setData(goodsDetail);
         return model;
     }
 }
