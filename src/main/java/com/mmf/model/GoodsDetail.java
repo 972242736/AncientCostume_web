@@ -11,7 +11,6 @@ public class GoodsDetail {
     private String describe;
     private String rental;
     private String deposit;
-    private List<String>  pathList;
 
     public int getId() {
         return id;
@@ -53,11 +52,4 @@ public class GoodsDetail {
         this.deposit = deposit;
     }
 
-    public List<String> getPathList() {
-        return pathList;
-    }
-
-    public void setPathList(List<String> pathList) {
-        this.pathList = pathList;
-    }
 }

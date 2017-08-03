@@ -13,7 +13,7 @@ public interface IFileDao {
      * @param detailId
      * @return
      */
-    int insertFile(@Param("imgName")String imgName,@Param("detailId")int detailId);
+    int insertFile(@Param("imgName")String imgName,@Param("detailId")int detailId,@Param("type")int type);
 
     /**
      * 插入商品的详细数据
@@ -23,9 +23,9 @@ public interface IFileDao {
     int insertDetail(GoodsDetail goodsDetail);
 
     /**
-     * 获取商品的详细数据
+     * 获取商品的图片信息
      * @param id
      * @return
      */
-    GoodsDetail getDetail(int id);
+    GoodsDetail getDetailImg(int id,int type);
 }

@@ -35,7 +35,7 @@ public class FileServiceImp implements IFileService {
                 try {
                     file.transferTo(new File(path));
                     //在数据库中插入一个记录
-                    fileDao.insertFile(pathTemp, detailId);
+                    fileDao.insertFile(pathTemp, detailId,Integer.parseInt(file.getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

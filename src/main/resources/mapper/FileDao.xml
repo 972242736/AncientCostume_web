@@ -8,10 +8,22 @@
         insert into tb_detail(`title`,`describe`,`rental`,`deposit`) VALUES (#{title},#{describe},#{rental},#{deposit})
     </insert>
 
-   <!-- 插入图片 -->
-    <insert id="insertFile" >
-        insert into tb_detail_img(`imgName`,`detailId`) VALUES (#{imgName},#{detailId})
+    <!-- 插入图片 -->
+    <insert id="insertFile">
+        insert into tb_detail_img(`imgName`,`detailId`,`type`) VALUES (#{imgName},#{detailId},#{type})
     </insert>
 
+    <!-- 获取商品的详细信息 -->
+    <select id="getDetail" resultType="GoodsDetail">
+        SELECT * FROM tb_detail where id=#{id}
+    </select>
+
+    <!-- 获取商品的图片信息 -->
+    <select id="getDetailImg" resultType="GoodsDetail">
+        SELECT * FROM tb_detail_img where id=#{id} and type in
+        <foreach collection="type" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 
 </mapper>
