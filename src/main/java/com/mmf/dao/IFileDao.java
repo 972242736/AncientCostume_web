@@ -1,7 +1,10 @@
 package com.mmf.dao;
 
 import com.mmf.model.GoodsDetail;
+import com.mmf.model.GoodsImg;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * Created by MMF on 2017-07-28.
@@ -23,9 +26,16 @@ public interface IFileDao {
     int insertDetail(GoodsDetail goodsDetail);
 
     /**
-     * 获取商品的图片信息
+     * 获取商品的详细信息
      * @param id
      * @return
      */
-    GoodsDetail getDetailImg(int id,int type);
+    GoodsDetail getDetail(int id);
+
+    /**
+     * 获取商品的图片信息
+     * @param detailId
+     * @return
+     */
+    GoodsImg getDetailImg(int detailId, List<Integer> type);
 }

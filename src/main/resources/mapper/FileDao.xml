@@ -19,8 +19,8 @@
     </select>
 
     <!-- 获取商品的图片信息 -->
-    <select id="getDetailImg" resultType="GoodsDetail">
-        SELECT * FROM tb_detail_img where id=#{id} and type in
+    <select id="getDetailImg" resultType="GoodsImg">
+        SELECT * FROM tb_detail_img where detailId=#{detailId} and type in
         <foreach collection="type" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>

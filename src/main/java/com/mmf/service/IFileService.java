@@ -1,6 +1,7 @@
 package com.mmf.service;
 
 import com.mmf.model.GoodsDetail;
+import com.mmf.model.GoodsImg;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -29,4 +30,12 @@ public interface IFileService {
      * @return
      */
     public GoodsDetail getDetail(int id);
+
+    /**
+     * 获取详情图片信息
+     * @param id
+     * @param type
+     * @return
+     */
+    public GoodsImg getDetailImg(int id, List<Integer> type);
 }

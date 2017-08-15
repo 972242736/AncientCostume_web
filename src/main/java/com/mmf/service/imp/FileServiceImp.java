@@ -2,6 +2,7 @@ package com.mmf.service.imp;
 
 import com.mmf.dao.IFileDao;
 import com.mmf.model.GoodsDetail;
+import com.mmf.model.GoodsImg;
 import com.mmf.service.IFileService;
 import com.mmf.utils.Md5;
 import org.springframework.stereotype.Service;
@@ -50,7 +51,12 @@ public class FileServiceImp implements IFileService {
 
     @Override
     public GoodsDetail getDetail(int id) {
-        return null;
+        return fileDao.getDetail(id);
+    }
+
+    @Override
+    public GoodsImg getDetailImg(int id, List<Integer> type) {
+        return fileDao.getDetailImg(id,type);
     }
 
 }

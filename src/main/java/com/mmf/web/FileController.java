@@ -140,8 +140,6 @@ public class FileController {
     @ResponseBody
     public Object getDetail(int id) {
         GoodsDetail goodsDetail = fileService.getDetail(id);
-//        model.addAttribute("list", list);
-        // list.jsp + model = ModelAndView
         ResponseModel model = new ResponseModel<List<User>>(0, "获取数据成功");
         model.setData(goodsDetail);
         return model;
