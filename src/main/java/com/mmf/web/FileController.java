@@ -2,6 +2,7 @@ package com.mmf.web;
 
 import com.mmf.dto.ResponseModel;
 import com.mmf.model.GoodsDetail;
+import com.mmf.model.GoodsImg;
 import com.mmf.model.User;
 import com.mmf.service.IFileService;
 import org.springframework.stereotype.Controller;
@@ -138,8 +139,16 @@ public class FileController {
     }
     @RequestMapping(value = "/getDetail", method = RequestMethod.GET)
     @ResponseBody
-    public Object getDetail(int id) {
+    public Object getDetail(int id,int type) {
         GoodsDetail goodsDetail = fileService.getDetail(id);
+        List<Integer> typeList=new ArrayList<>();
+        if(type == 1){
+            typeList.add(0);
+            typeList.add(1);
+        }else{
+            typeList.add(2);
+        }
+        GoodsImg goodsImg = fileService.getDetailImg(id,typeList);
         ResponseModel model = new ResponseModel<List<User>>(0, "获取数据成功");
         model.setData(goodsDetail);
         return model;

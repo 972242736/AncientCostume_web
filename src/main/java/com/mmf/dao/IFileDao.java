@@ -37,5 +37,5 @@ public interface IFileDao {
      * @param detailId
      * @return
      */
-    GoodsImg getDetailImg(int detailId, List<Integer> type);
+    GoodsImg getDetailImg(int detailId, List<Integer> types);
 }

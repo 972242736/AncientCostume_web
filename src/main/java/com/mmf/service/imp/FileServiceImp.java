@@ -55,8 +55,8 @@ public class FileServiceImp implements IFileService {
     }
 
     @Override
-    public GoodsImg getDetailImg(int id, List<Integer> type) {
-        return fileDao.getDetailImg(id,type);
+    public GoodsImg getDetailImg(int id, List<Integer> types) {
+        return fileDao.getDetailImg(id,types);
     }
 
 }

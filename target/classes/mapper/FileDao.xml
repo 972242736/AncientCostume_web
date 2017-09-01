@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmf.dao.IFileDao">
+    <!-- 插入详情数据 -->
+    <insert id="insertDetail" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_detail(`title`,`describe`,`rental`,`deposit`) VALUES (#{title},#{describe},#{rental},#{deposit})
+    </insert>
+
+    <!-- 插入图片 -->
+    <insert id="insertFile">
+        insert into tb_detail_img(`imgName`,`detailId`,`type`) VALUES (#{imgName},#{detailId},#{type})
+    </insert>
+
+    <!-- 获取商品的详细信息 -->
+    <select id="getDetail" resultType="GoodsDetail">
+        SELECT * FROM tb_detail where id=#{id}
+    </select>
+
+    <!-- 获取商品的图片信息 -->
+    <select id="getDetailImg" resultType="GoodsImg">
+        SELECT * FROM tb_detail_img where detailId=#{detailId} and type in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+        #{item}
+    </foreach>
+    </select>
+
+</mapper>
