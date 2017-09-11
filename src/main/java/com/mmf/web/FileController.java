@@ -147,10 +147,12 @@ public class FileController {
             typeList.add(1);
         }else{
             typeList.add(2);
+            typeList.add(1);
+            typeList.add(0);
         }
-        GoodsImg goodsImg = fileService.getDetailImg(id,typeList);
-        ResponseModel model = new ResponseModel<List<User>>(0, "获取数据成功");
-        model.setData(goodsDetail);
+        List<GoodsImg>  goodsImg = fileService.getDetailImg(id,typeList);
+        ResponseModel model = new ResponseModel<List<GoodsImg>>(0, "获取数据成功");
+        model.setData(goodsImg);
         return model;
     }
 }

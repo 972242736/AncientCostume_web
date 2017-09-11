@@ -37,5 +37,5 @@ public interface IFileService {
      * @param type
      * @return
      */
-    public GoodsImg getDetailImg(int id, List<Integer> type);
+    public  List<GoodsImg>  getDetailImg(int id, List<Integer> type);
 }
