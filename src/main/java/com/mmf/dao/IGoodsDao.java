@@ -2,6 +2,7 @@ package com.mmf.dao;
 
 import com.mmf.model.GoodsDetail;
 import com.mmf.model.GoodsImg;
+import com.mmf.model.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * Created by MMF on 2017-07-28.
  */
-public interface IFileDao {
+public interface IGoodsDao {
     /**
      * 插入图片的记录
      * @param imgName
@@ -38,4 +39,11 @@ public interface IFileDao {
      * @return
      */
     List<GoodsImg> getDetailImg(@Param("detailId")int detailId, @Param("types") List<Integer> types);
+
+    /**
+     * 获取商品列表
+     * @param page
+     * @return
+     */
+    List<GoodsImg> getGoodsList(@Param("page")Page page);
 }
