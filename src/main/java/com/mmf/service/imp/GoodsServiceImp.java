@@ -73,8 +73,8 @@ public class GoodsServiceImp implements IGoodsService {
      * @return
      */
     @Override
-    public ResponseModel getDetail(int id, int type) {
-        GoodsDetail goodsDetail = goodsDao.getDetail(id);
+    public ResponseModel getGoodsDetail(int id, int type) {
+        GoodsDetail goodsDetail = goodsDao.getGoodsDetail(id);
         List<Integer> typeList = new ArrayList<>();
         if (type == 1) {
             typeList.add(0);

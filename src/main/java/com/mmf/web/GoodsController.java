@@ -44,16 +44,16 @@ public class GoodsController extends BaseController{
         return goodsService.insertDetail(goodsDetail, request);
     }
 
-    @RequestMapping(value = "/getDetail", method = RequestMethod.GET)
+    @RequestMapping(value = "/getGoodsDetail", method = RequestMethod.GET)
     @ResponseBody
-    public Object getDetail(Integer id, Integer type) {
+    public Object getGoodsDetail(Integer id, Integer type) {
         ResponseModel model = new ResponseModel<List<GoodsImg>>(0, "获取数据成功");
         if (StringUtils.isEmpty(id)) {
             model.setMessage("缺少参数id");
             return model;
         }
 
-        return goodsService.getDetail(id, type);
+        return goodsService.getGoodsDetail(id, type);
     }
 
     @RequestMapping(value = "/getGoodsList", method = RequestMethod.GET)

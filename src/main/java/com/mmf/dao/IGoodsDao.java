@@ -31,7 +31,7 @@ public interface IGoodsDao {
      * @param id
      * @return
      */
-    GoodsDetail getDetail(int id);
+    GoodsDetail getGoodsDetail(int id);
 
     /**
      * 获取商品的图片信息

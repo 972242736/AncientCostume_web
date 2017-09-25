@@ -35,7 +35,7 @@ public interface IGoodsService {
      * @param id
      * @return
      */
-    ResponseModel getDetail(int id, int type);
+    ResponseModel getGoodsDetail(int id, int type);
 
     /**
      * 获取详情图片信息

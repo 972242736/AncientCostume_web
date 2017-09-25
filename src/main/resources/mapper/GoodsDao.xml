@@ -5,22 +5,22 @@
 <mapper namespace="com.mmf.dao.IGoodsDao">
     <!-- 插入详情数据 -->
     <insert id="insertDetail" useGeneratedKeys="true" keyProperty="id">
-        insert into tb_detail(`title`,`describe`,`rental`,`deposit`) VALUES (#{title},#{describe},#{rental},#{deposit})
+        INSERT INTO tb_detail(`title`,`describe`,`rental`,`deposit`) VALUES (#{title},#{describe},#{rental},#{deposit})
     </insert>
 
     <!-- 插入图片 -->
     <insert id="insertFile">
-        insert into tb_detail_img(`imgName`,`detailId`,`type`) VALUES (#{imgName},#{detailId},#{type})
+        INSERT INTO tb_detail_img(`imgName`,`detailId`,`type`) VALUES (#{imgName},#{detailId},#{type})
     </insert>
 
     <!-- 获取商品的详细信息 -->
-    <select id="getDetail" resultType="GoodsDetail">
-        SELECT * FROM tb_detail where id=#{id}
+    <select id="getGoodsDetail" resultType="GoodsDetail">
+        SELECT * FROM tb_detail WHERE id=#{id}
     </select>
 
     <!-- 获取商品的图片信息 -->
     <select id="getDetailImg" resultType="GoodsImg">
-        SELECT * FROM tb_detail_img where detailId=#{detailId} and type in
+        SELECT * FROM tb_detail_img WHERE detailId=#{detailId} AND type IN
         <foreach collection="types" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -28,6 +28,6 @@
 
     <!-- 获取商品列表 -->
     <select id="getGoodsList" resultType="GoodsList">
+         SELECT * ,(SELECT imgName FROM tb_detail_img b WHERE type = 0 AND b.detailId = a.id) imgName FROM tb_detail a
     </select>
-
 </mapper>
