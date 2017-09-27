@@ -2,6 +2,7 @@ package com.mmf.dao;
 
 import com.mmf.model.GoodsDetail;
 import com.mmf.model.GoodsImg;
+import com.mmf.model.GoodsList;
 import com.mmf.model.Page;
 import org.apache.ibatis.annotations.Param;
 
@@ -45,5 +46,5 @@ public interface IGoodsDao {
      * @param page
      * @return
      */
-    List<GoodsImg> getGoodsList(@Param("page")Page page);
+    List<GoodsList> getGoodsList(@Param("page")Page page);
 }

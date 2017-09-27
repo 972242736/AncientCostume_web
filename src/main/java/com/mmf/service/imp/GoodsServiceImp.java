@@ -4,6 +4,7 @@ import com.mmf.dao.IGoodsDao;
 import com.mmf.dto.ResponseModel;
 import com.mmf.model.GoodsDetail;
 import com.mmf.model.GoodsImg;
+import com.mmf.model.GoodsList;
 import com.mmf.model.Page;
 import com.mmf.service.IGoodsService;
 import com.mmf.utils.Md5;
@@ -29,14 +30,15 @@ public class GoodsServiceImp implements IGoodsService {
     /**
      * 多文件上传
      ***/
-    public void uploadFile(List<MultipartFile> files, int detailId) {
+    public void uploadFile(List<MultipartFile> files, int detailId,MultipartHttpServletRequest request) {
         //图片命名
         long time = System.currentTimeMillis();
-        (new File("D:/upload")).mkdirs();
+        String filePath = request.getServletContext().getRealPath("/")+"/upload/";
+        (new File(filePath)).mkdirs();
         if (files != null && files.size() > 0) {
             for (MultipartFile file : files) {
                 String pathTemp = Md5.getMD5Code(time + file.getOriginalFilename()) + file.getOriginalFilename().substring(file.getOriginalFilename().indexOf(".") - 1, file.getOriginalFilename().length());
-                String path = "D:/upload/" + pathTemp;
+                String path = filePath + pathTemp;
                 //上传
                 try {
                     file.transferTo(new File(path));
@@ -61,7 +63,7 @@ public class GoodsServiceImp implements IGoodsService {
         while (iter.hasNext()) {
             //一次遍历所有文件
             List<MultipartFile> files = request.getFiles(iter.next().toString());
-            uploadFile(files, detailId);
+            uploadFile(files, detailId,request);
         }
         return new ResponseModel(0, "发布成功");
     }
@@ -103,8 +105,10 @@ public class GoodsServiceImp implements IGoodsService {
      * @return
      */
     @Override
-    public List<GoodsImg> getGoodsList(Page page) {
-        return goodsDao.getGoodsList(page);
+    public ResponseModel getGoodsList(Page page) {
+        ResponseModel model = new ResponseModel<List<GoodsList>>(0, "获取数据成功");
+        model.setData(goodsDao.getGoodsList(page));
+        return model;
     }
 
 }

@@ -3,6 +3,7 @@ package com.mmf.service;
 import com.mmf.dto.ResponseModel;
 import com.mmf.model.GoodsDetail;
 import com.mmf.model.GoodsImg;
+import com.mmf.model.GoodsList;
 import com.mmf.model.Page;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -17,7 +18,7 @@ public interface IGoodsService {
     /**
      * 多文件上传
      */
-    void uploadFile(List<MultipartFile> files, int detailId);
+    void uploadFile(List<MultipartFile> files, int detailId,MultipartHttpServletRequest request);
 
     //    public int insertDetail(String title,String describe,String rental,String deposit);
 
@@ -51,5 +52,5 @@ public interface IGoodsService {
      * @param page
      * @return
      */
-    List<GoodsImg>  getGoodsList(Page page);
+    ResponseModel getGoodsList(Page page);
 }
