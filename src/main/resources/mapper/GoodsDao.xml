@@ -10,7 +10,7 @@
 
     <!-- 插入图片 -->
     <insert id="insertFile">
-        INSERT INTO tb_detail_img(`imgName`,`detailId`,`type`) VALUES (#{imgName},#{detailId},#{type})
+        INSERT INTO tb_detail_img(`img_name`,`detail_id`,`type`) VALUES (#{imgName},#{detailId},#{type})
     </insert>
 
     <!-- 获取商品的详细信息 -->
@@ -20,7 +20,7 @@
 
     <!-- 获取商品的图片信息 -->
     <select id="getDetailImg" resultType="GoodsImg">
-        SELECT * FROM tb_detail_img WHERE detailId=#{detailId} AND type IN
+        SELECT * FROM tb_detail_img WHERE detail_id=#{detailId} AND type IN
         <foreach collection="types" index="index" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -28,6 +28,6 @@
 
     <!-- 获取商品列表 -->
     <select id="getGoodsList" resultType="GoodsList">
-         SELECT * ,(SELECT imgName FROM tb_detail_img b WHERE type = 0 AND b.detailId = a.id) imgName FROM tb_detail a
+         SELECT * ,(SELECT img_name FROM tb_detail_img b WHERE type = 0 AND b.detail_id = a.id) imgName FROM tb_detail a
     </select>
 </mapper>
